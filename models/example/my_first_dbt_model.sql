@@ -1,12 +1,8 @@
--- ✅ Valid Snowflake dbt config
 {{ config(
-    materialized='table',
-    transient=false,           -- instead of OPTIONS(transient=true)
-    cluster_by=['order_date'], -- instead of OPTIONS(cluster_by=...)
-    tags=['gold']
+    materialized='table'
 ) }}
 
-select
-  ...
-from {{ ref('my_first_dbt_model') }}
-where id != 1
+-- ❌ ref() inside a conditional — dbt can't see it
+{% if some_condition %}
+  select * from {{ ref('some_other_model') }}
+{% endif %}
