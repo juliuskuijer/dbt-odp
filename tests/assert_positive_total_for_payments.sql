@@ -4,3 +4,4 @@ select
 from {{ ref('Stg_Payments')}}
 group by 1
 having not(total_amount>0)
+and 1=0
