@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: shop
+    database: dbt
+    schema: jaffle_shop
+    tables:
+      - name: customers
+      - name: orders
+        description: "Order transactions"
+        config:
+          loaded_at_field: _etl_loaded_at
+          freshness:
+            warn_after:
+              count: 1200
+              period: day
+            error_after:
+              count: 50000
+              period: day
+
+
